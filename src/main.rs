@@ -19,7 +19,7 @@ fn main() {
     println!("=> networks:");
     for (interface_name, data) in sys.networks() {
         println!(
-            "{}: {}/{} B",
+            "{:15}: {:3}/{:3} B",
             interface_name,
             data.received(),
             data.transmitted()
@@ -34,10 +34,10 @@ fn main() {
 
     println!("=> system:");
     // RAM and swap information:
-    println!("total memory: {} KB", sys.total_memory());
-    println!("used memory : {} KB", sys.used_memory());
-    println!("total swap  : {} KB", sys.total_swap());
-    println!("used swap   : {} KB", sys.used_swap());
+    println!("total memory: {:?} KB", sys.total_memory());
+    println!("used memory : {:?} KB", sys.used_memory());
+    println!("total swap  : {:?} KB", sys.total_swap());
+    println!("used swap   : {:?} KB", sys.used_swap());
 
     // Display system information:
     println!("System name:             {:?}", sys.name());
@@ -46,10 +46,15 @@ fn main() {
     println!("System host name:        {:?}", sys.host_name());
 
     // Number of processors:
-    println!("NB processors: {}", sys.processors().len());
+    println!("NB processors: {:2}", sys.processors().len());
 
     // Display processes ID, name na disk usage:
     for (pid, process) in sys.processes() {
-        println!("[{}] {} {:?}", pid, process.name(), process.disk_usage());
+        println!(
+            "[{:8}] {:30} {:?}",
+            pid,
+            process.name(),
+            process.disk_usage()
+        );
     }
 }
